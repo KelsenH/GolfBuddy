@@ -29,7 +29,7 @@ public class Date {
   } //end setDay
 
   public boolean setMonth (int month) {
-    if (month <= 12 && month < 0) {
+    if (month <= 12 && month > 0) {
       this.month = month;
       return true;
     } //end if
@@ -42,7 +42,7 @@ public class Date {
   public boolean setYear (int year) {
     if (year > 1950 && year < 2020) {
       this.year = year;
-      return true
+      return true;
     } //end if
     else {
       this.year = 2016;
