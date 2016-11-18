@@ -46,8 +46,5 @@ public class Date {
     return fullDate;
   } //end getFullDate
   
-  public static void main (String []args) {
-    Date date = new Date (12,6,1976);
-  } //end main
  
 } //end class

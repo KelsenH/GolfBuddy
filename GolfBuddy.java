@@ -3,16 +3,10 @@ import java.io.*;
 
 public class GolfBuddy {
   public static void main (String []args) {
-    Date date = new Date (11,6,1954);
-    System.out.println (date.getDay ());
-    System.out.println (date.getYear ());
-    System.out.println (date.getMonth ());
-    date.setDay (8);
-    date.setMonth (7);
-    date.setYear (2066);
-     System.out.println (date.getDay ());
-    System.out.println (date.getYear ());
-    System.out.println (date.getMonth ());
-      
+  Score score = new Score (9);
+  score.setHoleScore (7, 5);
+  System.out.println (score.getHoleScore (7));
+  score.setScoreDate (10, 5, 2016);
+  System.out.println (score.getScoreDate()); 
   }
 }
