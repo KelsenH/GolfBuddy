@@ -12,21 +12,42 @@ public class Date {
   } //end constructor
 
   Date (int day, int month, int year) {
-    this.day = day;
-    this.month = month;
-    this.year = year;
+    this.setDay (day);
+    this.setMonth (month);
+    this.setYear (year);
   } //end overloaded constructor
 
-  public void setDay (int day) {
-    this.day = day;
+  public boolean setDay (int day) {
+    if (day <= 31 && day > 0) {
+      this.day = day;
+      return true;
+    } //end if
+    else {
+      this.day = 10;
+      return false;
+    } //end else
   } //end setDay
 
-  public void setMonth (int month) {
-    this.month = month;
+  public boolean setMonth (int month) {
+    if (month <= 12 && month < 0) {
+      this.month = month;
+      return true;
+    } //end if
+    else {
+      this.month = 5;
+      return false;
+    } //emd e;se
   } //end setMonth
 
-  public void setYear (int year) {
-    this.year = year;
+  public boolean setYear (int year) {
+    if (year > 1950 && year < 2020) {
+      this.year = year;
+      return true
+    } //end if
+    else {
+      this.year = 2016;
+      return false;
+    } //end else
   } //end setYear
 
   public int getDay () {
