@@ -15,7 +15,8 @@ public class GolfBuddy {
   scoreTwo.setNextScore (scoreThree);
   Score scoreFour = new Score (18, scoreThree, scoreTwo);
   scoreFour.setScoreDate (4,4,2004);
-  //System.out.println ((scoreTwo.getNextScore()).getScoreDate());
+  scoreFour.setHoleScore (5, 8);
+  System.out.println (scoreFour.getAllScores());
   
   Score current = head;
   for (int i = 0;i < 5; i ++) {
