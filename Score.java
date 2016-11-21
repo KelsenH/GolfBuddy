@@ -25,7 +25,6 @@ public class Score {
     } //end for
     this.setNextScore (next);
     this.setPreviousScore (previous);
-    previousScore = null;
   } //end Constructor
 
   public void setScoreDate (int day, int month, int year) {
@@ -57,16 +56,16 @@ public class Score {
     else {
       Score temp = this.getNextScore ();
       this.nextScore = next;
-      next.setNextScore (temp);
-      next.setPreviousScore (this);
-      temp.setPreviousScore (next);
+      next.nextScore = temp;
+      next.previousScore = this;
+      temp.previousScore = next;
     } //end else
   } //end setNextScore
 
   public void setPreviousScore (Score previous) {
     if (this.getPreviousScore() == null) {
-      this.setPreviousExplicitly (previous);
-      previous.setNextScore (this);
+      this.previousScore = previous;
+      previous.nextScore = this;
     }  //end if
     else {
       Score temp = this.getPreviousScore ();

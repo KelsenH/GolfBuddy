@@ -3,12 +3,24 @@ import java.io.*;
 
 public class GolfBuddy {
   public static void main (String []args) {
-  Score score = new Score ();
-  Score scoreTwo = new Score ();
-  score.setNextScore (scoreTwo);
-  scoreTwo.setPreviousScore (score);
-  scoreTwo.setScoreDate (10,8,2008);
-  System.out.println ((score.getNextScore()).getScoreDate ());
-  Score scoreThree = new Score (18, null, scoreTwo); 
+  Score head = new Score (); 
+  Score scoreOne = new Score (9, null, head);
+  scoreOne.setScoreDate (1,1,2001);
+  //System.out.println ((head.getNextScore()).getAllScores());
+  Score scoreTwo = new Score (18,scoreOne, head);
+  scoreTwo.setScoreDate (2,2,2002);
+  //System.out.println ((head.getNextScore()).getScoreDate());
+  Score scoreThree = new Score ();
+  scoreThree.setScoreDate (3,3,2003);
+  scoreTwo.setNextScore (scoreThree);
+  Score scoreFour = new Score (18, scoreThree, scoreTwo);
+  scoreFour.setScoreDate (4,4,2004);
+  //System.out.println ((scoreTwo.getNextScore()).getScoreDate());
+  
+  Score current = head;
+  for (int i = 0;i < 5; i ++) {
+      System.out.println ((current).getScoreDate());
+      current = current.getNextScore();
+    }  
   }
-}
+} 
