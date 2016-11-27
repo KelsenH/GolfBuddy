@@ -88,7 +88,11 @@ public class Score {
     String date = scoreDate.getMonth () + "/" + scoreDate.getDay () + "/" + scoreDate.getYear();
     return date;
   } //end getScoreDate
-
+  
+  public int getPlayedHoles () {
+    return playedHoles;
+  } //end getPlayedHoles
+  
   public int getHoleScore (int holeNum) {
     return scores [holeNum - 1];
   } //end getHoleScore
@@ -108,5 +112,13 @@ public class Score {
     } //end for loop
     return scoreList;
   } //end getAllScores
+
+  public int getTotalScore () {
+    int totalScore = 0;
+    for (int i = 0; i < scores.length; i ++) {
+      totalScore += scores[i];
+    } // end for
+    return totalScore;
+  } //end getTotalScore
 
 } //end class
