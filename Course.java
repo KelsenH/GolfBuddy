@@ -1,10 +1,12 @@
 //Course.java
+import java.io.*;
 
 public class Course implements Serializable {
   private String courseName;
-  private int[18] pars;
+  private int[] pars = new int[18];
   private float courseRating;
   private float slopeRating;
+  private int bestScore;
   private Score headScore;
 
   Course () {
@@ -12,7 +14,7 @@ public class Course implements Serializable {
     courseRating = 70;
     slopeRating = 125;
     headScore = new Score ();
-    bestScore = null;
+    bestScore = 600;
   } //end constructor
 
   Course (String courseName) {
@@ -20,7 +22,7 @@ public class Course implements Serializable {
     courseRating = 70;
     slopeRating = 125;
     headScore = new Score ();
-    bestScore = null;
+    bestScore = 600;
   } //end constructor
 
   public void setCourseName (String courseName) {
@@ -31,6 +33,14 @@ public class Course implements Serializable {
     pars[holeNum - 1] = par;
   } //end setPar
 
+  public void setCourseRating (float courseRating) {
+    this.courseRating = courseRating;
+  } //end setCourseRating
+
+  public void setSlopeRating (float slopeRating) {
+    this.slopeRating = slopeRating;
+  } //end setSlopeRating
+
   public String getCourseName () {
     return courseName;
   } //end getCourseName
@@ -39,6 +49,18 @@ public class Course implements Serializable {
     return pars[holeNum - 1];
   } //end getPar 
 
+  public float getCourseRating () {
+    return courseRating;
+  } //end getCourseRating
+
+  public float getSlopeRating () {
+    return slopeRating;
+  } //end getSlopeRating
+
+  public void addNewScore () {
+    
+  } //end addNewScore
+  
   public int getBestScore (int holesPlayed) {
     Score current = headScore;
     int bestScore = 400;
