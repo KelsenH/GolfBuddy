@@ -4,10 +4,16 @@ import java.io.*;
 public class GolfBuddy {
   public static void main (String []args) {
   Course courseTest = new Course ();
-  Course courseTestTwo = new Course ("Walnut Oaks");
   courseTest.setCourseName ("Flower Hills");
-  System.out.println (courseTest.getCourseName());
-  courseTest.setPar (1,3);
-  System.out.println (courseTest.getPar (5)); 
+  courseTest.addNewScore (10,10,2010,18);
+  courseTest.addNewScore (9,9,2009,18);
+  Score test = courseTest.findScore (2);
+  System.out.println (courseTest.findScore (2).getScoreDate());
+  System.out.println (test.getTotalScore ());
+  System.out.println (courseTest.getBestScore (18));
+  courseTest.saveScores ();
+  courseTest.loadScores ();
+  courseTest.setHoleScore (2,5,1);
+  System.out.println (courseTest.getBestScore (18));
   }
 } 

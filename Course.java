@@ -8,12 +8,14 @@ public class Course implements Serializable {
   private float slopeRating;
   private int bestScore;
   private Score headScore;
+  private Score scorePlace;
 
   Course () {
     courseName = "";
     courseRating = 70;
     slopeRating = 125;
     headScore = new Score ();
+    scorePlace = headScore;
     bestScore = 600;
   } //end constructor
 
@@ -22,6 +24,7 @@ public class Course implements Serializable {
     courseRating = 70;
     slopeRating = 125;
     headScore = new Score ();
+    scorePlace = headScore;
     bestScore = 600;
   } //end constructor
 
@@ -57,12 +60,30 @@ public class Course implements Serializable {
     return slopeRating;
   } //end getSlopeRating
 
-  public void addNewScore () {
-    
+  public int findIndex () {
+    Score currentScore = headScore;
+    int index = 1;
+    while (currentScore.getNextScore () != null) {
+      currentScore = currentScore.getNextScore ();
+      index ++;
+    } //end while
+    return index;
+  } //end findIndex
+
+  public void addNewScore (int day, int month, int year, int holesPlayed) {
+    Score newScore = new Score ();
+    newScore.setPlayedHoles (holesPlayed);
+    newScore.setScoreDate (day, month, year);
+    newScore.setScoreIndex (findIndex());
+    Score currentScore = headScore;
+    while (currentScore.getNextScore () != null) {
+      currentScore = currentScore.getNextScore ();
+    } //end while
+    currentScore.setNextScore (newScore);
   } //end addNewScore
-  
+
   public int getBestScore (int holesPlayed) {
-    Score current = headScore;
+    Score current = headScore.getNextScore ();
     int bestScore = 400;
     if (holesPlayed != 9 && holesPlayed != 18) {
       holesPlayed = 18;
@@ -79,6 +100,22 @@ public class Course implements Serializable {
     } //end while 
     return bestScore;
   } //end getBestScore
+
+  public Score findScore (int index) {
+    Score currentScore = headScore;
+    while (currentScore.getScoreIndex () != index) {
+      currentScore = currentScore.getNextScore ();
+      if (currentScore == null) {
+        return headScore;
+      } //end if
+    } //end while
+    return currentScore;
+  } //end findScore
+
+  public void setHoleScore (int index, int holeNumber, int holeScore) { 
+    Score score = findScore (index);
+    score.setHoleScore (holeNumber, holeScore);
+  } //end setHoleScore
 
   public void saveScores () {
     try {

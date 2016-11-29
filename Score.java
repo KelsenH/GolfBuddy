@@ -1,11 +1,13 @@
 //Score.java
+import java.io.*;
 
-public class Score {
+public class Score implements Serializable {
   private Date scoreDate = new Date (1,1,2000);
   private int playedHoles = 18;
   private int[] scores;
   private Score nextScore;
   private Score previousScore;
+  private int index;
 
   //Constructor
   Score () {
@@ -15,6 +17,7 @@ public class Score {
     } //end for loop
     nextScore = null;
     previousScore = null;
+    index = 0;
   } //end Constructor
 
   Score (int playedHoles, Score next, Score previous) {
@@ -25,6 +28,7 @@ public class Score {
     } //end for
     this.setNextScore (next);
     this.setPreviousScore (previous);
+    index = 0;
   } //end Constructor
 
   public void setScoreDate (int day, int month, int year) {
@@ -34,7 +38,7 @@ public class Score {
   } //end setScoreDate
 
   //Method should only be called by the constructor to validate input
-  private boolean setPlayedHoles (int playedHoles) {
+  public boolean setPlayedHoles (int playedHoles) {
     if (playedHoles == 18 | playedHoles == 9 ) {
       this.playedHoles = playedHoles;
       return true;
@@ -84,6 +88,10 @@ public class Score {
     this.nextScore = next;
   } //end setNextExplicitly
 
+  public void setScoreIndex (int index) {
+    this.index = index;
+  } //end setScoreIndex
+
   public String getScoreDate () {
     String date = scoreDate.getMonth () + "/" + scoreDate.getDay () + "/" + scoreDate.getYear();
     return date;
@@ -120,5 +128,9 @@ public class Score {
     } // end for
     return totalScore;
   } //end getTotalScore
+ 
+  public int getScoreIndex () {
+    return index;
+  } //end getScoreIndex
 
 } //end class
