@@ -74,13 +74,29 @@ public class Course implements Serializable {
     Score newScore = new Score ();
     newScore.setPlayedHoles (holesPlayed);
     newScore.setScoreDate (day, month, year);
-    newScore.setScoreIndex (findIndex());
     Score currentScore = headScore;
-    while (currentScore.getNextScore () != null) {
-      currentScore = currentScore.getNextScore ();
+    boolean keepGoing = true;
+    while (keepGoing) {
+      if (currentScore.isNewer(newScore)) {
+        currentScore = currentScore.getNextScore ();     
+      } //end if
+      else {
+        keepGoing = false;
+      } //end else
     } //end while
     currentScore.setNextScore (newScore);
+    setIndexes ();
   } //end addNewScore
+
+  public void setIndexes () {
+    Score currentScore = headScore.getNextScore ();
+    int currentIndex = 1;
+    while (currentScore != null) {
+      currentScore.setScoreIndex (currentIndex);
+      currentIndex ++;
+      currentScore = currentScore.getNextScore ();
+    } //end while
+  } //end setIndexes
 
   public int getBestScore (int holesPlayed) {
     Score current = headScore.getNextScore ();
@@ -138,5 +154,22 @@ public class Course implements Serializable {
       System.out.println (e.getMessage ());
     } // end try
   } //end loadScores
+
+  public void printAllScoreDates () {
+    boolean keepGoing = true;
+    int amount = 0;
+    Score current = headScore;
+    while (keepGoing) {
+      if (current == null) {
+        keepGoing = false;
+      }
+      else {
+        System.out.println (current.getScoreDate ());
+        System.out.println (amount);
+        current = current.getNextScore ();
+        amount ++;
+      }
+    }
+  } 
 
 } //end class

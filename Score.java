@@ -2,7 +2,7 @@
 import java.io.*;
 
 public class Score implements Serializable {
-  private Date scoreDate = new Date (1,1,2000);
+  private Date scoreDate = new Date (1,1,2019);
   private int playedHoles = 18;
   private int[] scores;
   private Score nextScore;
@@ -132,5 +132,47 @@ public class Score implements Serializable {
   public int getScoreIndex () {
     return index;
   } //end getScoreIndex
+
+  public boolean isNewer (Score otherScore) {
+    int year = this.scoreDate.getYear ();
+    int month = this.scoreDate.getMonth ();
+    int day = this.scoreDate.getDay ();
+    int otherScoreYear = otherScore.scoreDate.getYear ();
+    int otherScoreMonth = otherScore.scoreDate.getMonth ();
+    int otherScoreDay = otherScore.scoreDate.getDay ();
+
+    if (year < otherScoreYear) {
+       return true;
+    } //end if
+    else if (year > otherScoreYear) {
+      return false;
+    } //end else if
+    else if (year == otherScoreYear) {
+      System.out.println ("Made it to else");
+      if (month > otherScoreMonth) {
+        System.out.println ("HERE");
+        return true;
+      } //end if
+      else if (month < otherScoreMonth) {
+        System.out.println ("HERE2");
+        return false;
+      } //end else if
+      else {
+        if (day < otherScoreDay) {
+          return true;
+        } //end if
+        else if (day > otherScoreDay) {
+          return false;
+        } //end else if
+        else {
+          return true;
+        } //end else
+      } //end else
+    } //end else
+    else {
+      return false;
+    } //end else
+  } //end isNewer
+
 
 } //end class
