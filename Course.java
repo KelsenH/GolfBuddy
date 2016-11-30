@@ -7,15 +7,13 @@ public class Course implements Serializable {
   private float courseRating;
   private float slopeRating;
   private int bestScore;
-  private Score headScore;
-  private Score scorePlace;
+  public Score headScore;
 
   Course () {
     courseName = "";
     courseRating = 70;
     slopeRating = 125;
     headScore = new Score ();
-    scorePlace = headScore;
     bestScore = 600;
   } //end constructor
 
@@ -24,7 +22,6 @@ public class Course implements Serializable {
     courseRating = 70;
     slopeRating = 125;
     headScore = new Score ();
-    scorePlace = headScore;
     bestScore = 600;
   } //end constructor
 
@@ -60,31 +57,30 @@ public class Course implements Serializable {
     return slopeRating;
   } //end getSlopeRating
 
-  public int findIndex () {
-    Score currentScore = headScore;
-    int index = 1;
-    while (currentScore.getNextScore () != null) {
-      currentScore = currentScore.getNextScore ();
-      index ++;
-    } //end while
-    return index;
-  } //end findIndex
-
   public void addNewScore (int day, int month, int year, int holesPlayed) {
     Score newScore = new Score ();
     newScore.setPlayedHoles (holesPlayed);
     newScore.setScoreDate (day, month, year);
-    Score currentScore = headScore;
+    Score currentScore = headScore.getNextScore ();
+    if (currentScore == null) {
+      currentScore = headScore;
+    } //end if
     boolean keepGoing = true;
     while (keepGoing) {
       if (currentScore.isNewer(newScore)) {
-        currentScore = currentScore.getNextScore ();     
+        Score safeSpot = currentScore;
+        currentScore = currentScore.getNextScore ();
+        if (currentScore == null) {
+          currentScore = safeSpot;
+          currentScore.setNextScore (newScore);
+          keepGoing = false;
+        } //end if    
       } //end if
       else {
+        currentScore.setPreviousScore (newScore);
         keepGoing = false;
       } //end else
     } //end while
-    currentScore.setNextScore (newScore);
     setIndexes ();
   } //end addNewScore
 

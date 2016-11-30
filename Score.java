@@ -56,6 +56,7 @@ public class Score implements Serializable {
   public void setNextScore (Score next) {
     if (this.nextScore == null) {
       this.nextScore = next;
+      next.previousScore = this;
     } //end if
     else {
       Score temp = this.getNextScore ();
@@ -141,27 +142,24 @@ public class Score implements Serializable {
     int otherScoreMonth = otherScore.scoreDate.getMonth ();
     int otherScoreDay = otherScore.scoreDate.getDay ();
 
-    if (year < otherScoreYear) {
+    if (year > otherScoreYear) {
        return true;
     } //end if
-    else if (year > otherScoreYear) {
+    else if (year < otherScoreYear) {
       return false;
     } //end else if
     else if (year == otherScoreYear) {
-      System.out.println ("Made it to else");
       if (month > otherScoreMonth) {
-        System.out.println ("HERE");
         return true;
       } //end if
       else if (month < otherScoreMonth) {
-        System.out.println ("HERE2");
         return false;
       } //end else if
       else {
-        if (day < otherScoreDay) {
+        if (day > otherScoreDay) {
           return true;
         } //end if
-        else if (day > otherScoreDay) {
+        else if (day < otherScoreDay) {
           return false;
         } //end else if
         else {
