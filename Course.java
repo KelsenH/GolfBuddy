@@ -233,4 +233,27 @@ public class Course implements Serializable {
     return totalScore;
   } //end getScoreForHole
 
+  public int timesPlayed (int holeNum) {
+    int timesPlayed = 0;
+    Score currentScore = headScore.getNextScore ();
+    if (currentScore == null) {
+      return 1;
+    } //end if
+    while (currentScore != null) {
+      if (holeNum > 9) {
+        if (currentScore.getPlayedHoles () > 9) {
+          timesPlayed ++;
+        } //end if
+      } //end if
+      else if (holeNum <= 9) {
+        timesPlayed ++;
+      } //end else if
+      else {
+        System.out.println ("Something went wrong");
+      } //end else
+    currentScore = currentScore.getNextScore ();
+    } //end while
+    return timesPlayed;
+  } //end timesPlayed
+
 } //end class
