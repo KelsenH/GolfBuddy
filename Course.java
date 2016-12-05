@@ -110,6 +110,9 @@ public class Course implements Serializable {
       } //end if
       current = current.getNextScore ();
     } //end while 
+    if (bestScore == 400) {
+      bestScore = 0;
+    } //end if
     return bestScore;
   } //end getBestScore
 
@@ -158,7 +161,7 @@ public class Course implements Serializable {
     for (int i = 1; i < 19; i++) {
       int holePar = getPar (i);
       //Check all scores for that hole
-      Score currentScore = headScore;
+      Score currentScore = headScore.getNextScore ();
       while (currentScore != null) {
         int golferScore = currentScore.getHoleScore (i);
         if (holePar == golferScore) {
@@ -176,7 +179,7 @@ public class Course implements Serializable {
     for (int i = 1; i < 19; i++) {
       int holePar = getPar (i);
       //Check all scores for that hole
-      Score currentScore = headScore;
+      Score currentScore = headScore.getNextScore ();
       while (currentScore != null) {
         int golferScore = currentScore.getHoleScore (i);
         if (holePar-1 == golferScore) {
@@ -210,6 +213,9 @@ public class Course implements Serializable {
       } //end else
     } //end while
     //Divide avgScore by numberOfScores
+    if (numOfScores == 0) {
+      return 0;
+    } //end if
     avgScore = avgScore/numOfScores;
     return avgScore;
   } //end getAvgScore

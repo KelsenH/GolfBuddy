@@ -59,7 +59,7 @@ public class Golfer implements Serializable {
   public int getPars () {
     int pars = 0;
     if (courses.isEmpty ()) {
-      return 5;
+      return 0;
     } //end if
     for (int i = 0; i < courses.size(); i ++) {
       Course currentCourse = (Course)courses.get(i);
@@ -99,6 +99,15 @@ public class Golfer implements Serializable {
         bestScore = courseBest;
       } //end else if
     } //end for
+    if (holeAmount == 9) {
+      bestScoreNine = bestScore;
+    } //end if
+    else if (holeAmount == 18) {
+      bestScoreEighteen = bestScore;
+    } //end if
+    else {
+      System.out.println ("Improper Hole Amount");
+    } //end else
     return bestScore;
   } //end getBestScore
  
@@ -117,7 +126,19 @@ public class Golfer implements Serializable {
       } //end if
       avgScore += courseAvg;
     } //end for
+    if (numOfCourses == 0) {
+      return 0;
+    } //end if
     avgScore = avgScore/numOfCourses;
+    if (holeAmount == 9) {
+      avgScoreNine = avgScore;
+    } //end if
+    else if (holeAmount == 18) {
+      avgScoreEighteen = avgScore;
+    } //end else if
+    else {
+      System.out.println ("Improper Hole Amount");
+    } //end else
     return avgScore;
   } //end getAvgScore
 
@@ -143,7 +164,22 @@ public class Golfer implements Serializable {
       } //end for
     } //end for
     //Divide avgPar by holeAmount
+    if (holeAmount == 0) {
+      return 0;
+    } //end if
     avgScore = avgScore/holeAmount;
+    if (par == 3) {
+      parThreeAvg = avgScore;
+    } //end if
+    else if (par == 4) {
+      parFourAvg = avgScore;
+    } //end else if
+    else if (par == 5) {
+      parFiveAvg = avgScore;
+    } //end else if
+    else {
+      System.out.println ("Improper par number");
+    } //end else
     return avgScore;
   } //end getAvgOnPar
 
@@ -155,6 +191,7 @@ public class Golfer implements Serializable {
     int avgCourseRating = 71;
     int avgScore = getAvgScore (18);
     float handicap = ((avgScore - avgCourseRating) * 113) / avgSlopeRating;
+    avgHandicap = handicap;
     return handicap;
   } //end getAvgHandicap
 
